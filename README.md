@@ -12,47 +12,6 @@ To write a yacc program to recognize a valid arithmetic expression that uses ope
 7.	Compile these with the C compiler as gcc lex.yy.c y.tab.c
 8.	Enter an arithmetic expression as input and the tokens are identified as output.
 # PROGRAM
-name.l
-```
-%{
-    #include "y.tab.h"
-%}
-
-%%
-[a-zA-Z]+  { yylval = strdup(yytext); return NAME; }
-[ \t\n]    { /* Ignore whitespace */ }
-.          { printf("Invalid character: %s\n", yytext); }
-
-%%
-
-int yywrap() { return 1; }
-```
-name.y
-```
-%{
-    #include <stdio.h>
-    #include <stdlib.h>
-    extern int yylex();
-    void yyerror(const char *s);
-%}
-
-%token NAME
-
-%%
-start: NAME { printf("Hello, %s!\n", $1); }
-     ;
-
-%%
-void yyerror(const char *s) {
-    fprintf(stderr, "Error: %s\n", s);
-}
-
-int main() {
-    printf("Enter your name: ");
-    yyparse();
-    return 0;
-}
-```
 cdex3.l
 ```
 %{
@@ -110,11 +69,9 @@ int main() {
 }
 ```
 # OUTPUT
-name.l
-<img width="1401" height="760" alt="Screenshot 2025-09-13 110056" src="https://github.com/user-attachments/assets/4a383789-5de7-42ed-b017-166c375ad5e0" />
 cdex3.l
-<img width="957" height="408" alt="image" src="https://github.com/user-attachments/assets/33670763-705c-42a1-9275-03106c4ad954" />
 <img width="955" height="412" alt="image" src="https://github.com/user-attachments/assets/1f67948f-e4da-45ef-bd27-75f3c2c38a7d" />
+<img width="1202" height="366" alt="image" src="https://github.com/user-attachments/assets/79ed3f85-011a-4da7-abdc-3b71c08b4539" />
 
 # RESULT
 A YACC program to recognize a valid arithmetic expression that uses operator +,-,* and / is executed successfully and the output is verified.
